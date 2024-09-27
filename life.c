@@ -28,7 +28,26 @@ int getInitialState(int init_state[]) {
 }
 
 void setInitialState(char board[][NUM_COLS], int init_state[], int num_alive) {
-  
+  int currentIndex = 0;
+  int init_index = 0;
+
+  // Initialize the board to all dead cells
+  for (int r = 0; r < NUM_ROWS; r++) {
+    for (int c = 0; c < NUM_COLS; c++) {
+      board[r][c] = 'o';  // Dead cell
+    }
+  }
+
+  // set inital state alive cells
+  for(int r = 0; r < NUM_ROWS; r++) {
+    for(int c = 0; c < NUM_COLS; c++) {
+      if(init_index < num_alive && init_state[init_index] == currentIndex) {
+        board[r][c] = '*';
+        init_index++;
+      }
+      currentIndex++;
+    }
+  }
 }
 
 int countLiveNeighbors(char board[][NUM_COLS], int r, int c) {
