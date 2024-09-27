@@ -72,7 +72,32 @@ int countLiveNeighbors(char board[][NUM_COLS], int r, int c) {
 }
 
 void NextGeneration(char board1[][NUM_COLS]) {
-  
+  char tempBoard[NUM_ROWS][NUM_COLS];
+
+  for(int r = 0; r < NUM_ROWS; r++) {
+    for(int c = 0; c < NUM_COLS; c++) {
+      int liveNeighbors = countLiveNeighbors(board1, r, c);
+
+      // logic for alive cells 
+      if(board1[r][c] == '*' && (liveNeighbors < 2 || liveNeighbors > 3)) {
+        tempBoard[r][c] = 'o' ;
+      }
+      // logic for dead cells 
+      else if(board1[r][c] == 'o' && (liveNeighbors == 3)) {
+        tempBoard[r][c] = '*';
+      }
+      else {
+        tempBoard[r][c] = board1[r][c];
+      }
+    }
+  }
+
+  // copy from temp to board
+  for (int r = 0; r < NUM_ROWS; r++) {
+    for (int c = 0; c < NUM_COLS; c++) {
+      board1[r][c] = tempBoard[r][c];
+    }
+  }
 }
 
 void printBoard(char board[][NUM_COLS]) {
