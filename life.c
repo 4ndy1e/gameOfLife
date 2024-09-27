@@ -51,7 +51,24 @@ void setInitialState(char board[][NUM_COLS], int init_state[], int num_alive) {
 }
 
 int countLiveNeighbors(char board[][NUM_COLS], int r, int c) {
- 
+ int count = 0;
+
+  for(int rowRange = -1; rowRange <= 1; rowRange++) {
+    for(int colRange = -1; colRange <= 1; colRange++) {
+      int row = r + rowRange;
+      int col = c + colRange;
+
+      // skip center and out of bound cells 
+      if ((row == r && col == c) || row < 0 || row >= NUM_ROWS || col < 0 || col >= NUM_COLS) {
+        continue;
+      }
+
+      if(board[row][col] == '*') {
+        count++;
+      }
+    }
+  }
+  return count;
 }
 
 void NextGeneration(char board1[][NUM_COLS]) {
